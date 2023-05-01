@@ -4,20 +4,26 @@ import java.util.List;
 public class Paciente implements IPaciente{
     private String nome;
     private String planoMedico;
-    private int idade;
+    private Integer idade;
     private String cpf;
     private String condicaoMedica;
+    private Integer quarto;
 
-    public Paciente(String cpf){
-        this.cpf = cpf;
-        Paciente objeto = DataBase.getPaciente(cpf);
+    public Paciente(Integer quarto){
+        if(quarto == null)
+            throw new NullPointerException("O quarto não pode ser nulo!");
+
+        this.quarto = quarto;
+        Paciente objeto = DataBase.getPaciente(quarto);
+        this.cpf = objeto.cpf;
         this.nome = objeto.nome;
         this.planoMedico = objeto.planoMedico;
         this.condicaoMedica = objeto.condicaoMedica;
         this.idade = objeto.idade;
     }
 
-    public Paciente(String nome, String planoMedico, int idade, String cpf, String condicaoMedica) {
+    public Paciente(Integer quarto, String nome, String planoMedico, Integer idade, String cpf, String condicaoMedica) {
+        this.quarto = quarto;
         this.nome = nome;
         this.planoMedico = planoMedico;
         this.idade = idade;
@@ -25,8 +31,8 @@ public class Paciente implements IPaciente{
         this.condicaoMedica = condicaoMedica;
     }
 
-    public String getCpf(){
-        return cpf;
+    public Integer getQuarto(){
+        return quarto;
     }
 
     public List<String> dadosPessoais(){
